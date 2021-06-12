@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int lowerBound(int arr[], int n, int item){
+
+    if(item > arr[n-1])return n;
+    if(item < arr[0])return 0;
+
+    int l = 0, r = n;
+    int p = -1;
+    while(l < r){
+        int m = l + (r - l) / 2;
+        if(item <= arr[m]){
+            p = m;
+            r = m;
+        }
+        else l = m + 1;
+    }
+    return p;
+}
+
+int upperBound(int arr[], int n, int item){
+
+    if(item > arr[n-1])return n;
+    if(item < arr[0])return 0;
+
+    int l = 0, r = n;
+    int p = -1;
+    while(l < r){
+        int m = l + (r - l) / 2;
+        if(item >= arr[m]){
+            l = m + 1;
+            p = l;
+        }
+        else r = m;
+    }
+    return p;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int arr[10] = { 1, 2, 2, 5, 6, 6, 7, 9, 9, 9 };
+    int x = 6;
+
+    cout<<"Lower Bound of "<<x<<": "<<lowerBound(arr, 10, x)<<endl;
+    cout<<"Upper Bound of "<<x<<": "<<upperBound(arr, 10, x)<<endl;
+
+    return 0;
+}
