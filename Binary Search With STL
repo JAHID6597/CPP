@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;
+    cout<<"How Many Numbers : ";
+    cin>>n;
+
+    int arr[n];
+    cout<<"Enter "<<n<<" Numbers : ";
+    for(int i=0;i<n;i++)cin>>arr[i];
+
+    int item;
+    cout<<"Enter Search Item : ";
+    cin>>item;
+
+    bool found = binary_search(arr,arr+n,item);
+
+    if(found)cout<<item<<" is found"<<endl;
+    else cout<<item<<" is not found"<<endl;
+
+    return 0;
+}
