@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isPrime(int n){
+    bool ok = true;
+    if(n%2 == 0 && n != 2)
+        return !ok;
+    for(int i=3;i*i<=n;i+=2){
+        if(n%i == 0){
+            ok = false;
+            break;
+        }
+    }
+    return ok;
+}
+
+vector<int> primeNumbers(int n){
+    vector<int> primes;
+    if(n>=2)
+        primes.push_back(2);
+    for(int i=3;i<=n;i+=2){
+        if(isPrime(i))
+            primes.push_back(i);
+    }
+
+    return primes;
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+
+    vector<int> primes;
+    primes = primeNumbers(n);
+
+    cout<<primes.size()<<" prime numbers up to "<<n<<endl;
+    for(auto it: primes)
+        cout<<it<<" ";
+
+    return 0;
+}
