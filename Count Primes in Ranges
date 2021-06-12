@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const long long MAX = 1e5 + 5;
+long long primes[MAX];
+long long primeCounter[MAX];
+
+bool isPrime(long long n){
+    bool ok = true;
+    if(n%2 == 0 && n != 2)
+        return !ok;
+    for(long long i=3;i*i<=n;i+=2){
+        if(n%i == 0){
+            ok = false;
+            break;
+        }
+    }
+    return ok;
+}
+
+void primeNumbers(){
+    primes[2] = 2;
+    for(long long i=3;i<=MAX;i+=2){
+        if(isPrime(i))
+            primes[i] = i;
+    }
+}
+
+void buildPrimeCounter(){
+    primeNumbers();
+
+    for(long long i=1;i<=MAX;i++){
+        primeCounter[i] = primeCounter[i-1];
+        if(primes[i])
+            primeCounter[i]++;
+    }
+}
+
+int main()
+{
+    buildPrimeCounter();
+
+    long long l, r;
+    cin>>l>>r;
+
+    cout<<primeCounter[r] - primeCounter[l-1]<<endl;
+
+    return 0;
+}
