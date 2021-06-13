@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void reverseString(string &s, int l, int r){
+    if(l > r)
+        return;
+
+    swap(s[l], s[r]);
+    reverseString(s, l+1, r-1);
+}
+
+bool isPalindrome(string s, string r){
+    return s == r;
+}
+
+int main()
+{
+    string s;
+    cin>>s;
+    string r = s;
+    int len = r.length();
+
+    reverseString(r, 0, len - 1);
+
+    if(isPalindrome(s, r))
+        cout<<"Palindrome"<<endl;
+    else
+        cout<<"Not Palindrome"<<endl;
+
+    return 0;
+}
