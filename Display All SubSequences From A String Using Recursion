@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void subSeq(string s, string e){
+    if(s.size() == 0){
+        cout<<e<<endl;
+        return;
+    }
+
+    char ch = s[0];
+    subSeq(s.substr(1), e);
+    subSeq(s.substr(1), e+ch);
+
+}
+
+
+int main()
+{
+    string s;
+    cin>>s;
+    string emptyString = "";
+    subSeq(s, emptyString);
+    return 0;
+}
