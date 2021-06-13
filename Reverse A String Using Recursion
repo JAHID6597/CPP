@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string newReverseString = "";
+
+void reverseString(string s){
+    if(s.size() == 0)
+        return;
+
+    reverseString(s.substr(1));
+    newReverseString += s[0];
+}
+
+int main()
+{
+    string s;
+    cin>>s;
+    cout<<"Main String: "<<s<<endl;
+
+    reverseString(s);
+    cout<<"Reverse String: "<<newReverseString<<endl;
+
+    return 0;
+}
