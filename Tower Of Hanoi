@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int moves=0;
+
+void towerOfHanoi(int block, char src, char dst, char helper){
+    if(block == 0)return;
+
+    moves++;
+
+    towerOfHanoi(block-1, src, helper, dst);
+    cout<<"Move from "<<src<<" to "<<dst<<endl;
+    towerOfHanoi(block-1, helper, dst, src);
+}
+
+int main()
+{
+    int block = 3;
+    char src='A', dst='C', helper='B';
+
+    towerOfHanoi(block, src, dst, helper);
+    cout<<"Total Moves: "<<moves<<endl;
+
+    return 0;
+}
