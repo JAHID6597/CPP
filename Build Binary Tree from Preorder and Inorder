@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(){};
+
+    Node(int val){
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+
+    void inorderDisplay(Node* root){
+        if(root == NULL)
+            return;
+
+        inorderDisplay(root->left);
+        cout<<root->data<<" ";
+        inorderDisplay(root->right);
+    }
+};
+
+int searchInorderArray(int inorder[], int s, int e, int val){
+    int pos = -1;
+    for(int i=s; i<=e; i++){
+        if(inorder[i] == val){
+            pos = i;
+            break;
+        }
+    }
+    return pos;
+}
+
+Node* buildArray(int preorder[], int inorder[], int s, int e){
+    if(s > e)return NULL;
+
+    static int idx = 0;
+    int currentNodeValue = preorder[idx];
+    idx++;
+
+    int pos = searchInorderArray(inorder, s, e, currentNodeValue);
+
+    Node* node = new Node(currentNodeValue);
+    if(s == e)return node;
+
+    node->left = buildArray(preorder, inorder, s, pos-1);
+    node->right = buildArray(preorder, inorder, pos+1, e);
+
+    return node;
+}
+
+int main()
+{
+    Node node;
+
+    /*
+          1
+        /   \
+      2       3
+     / \     / \
+    4   5   6   7
+
+    */
+
+    int preorder[] = {1, 2, 4, 5, 3, 6, 7};
+    int inorder[] = {4, 2, 5, 1, 6, 3, 7};
+
+    Node* root = buildArray(preorder, inorder, 0, 6);
+    node.inorderDisplay(root);
+
+    return 0;
+}
