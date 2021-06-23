@@ -1,0 +1,94 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+class Node{
+public:
+    int data;
+    Node* left;
+    Node* right;
+    vector<pair<ll, ll> > vp;
+    ll k=0;
+    ll sum=0;
+
+    Node(){};
+    Node(int d){
+        data = d;
+        left = NULL;
+        right = NULL;
+    }
+
+    void kthLevelSum(Node* root){
+        if(root == NULL)
+            return;
+
+        queue<Node*> q;
+        q.push(root);
+        q.push(NULL);
+        while(!q.empty()){
+            Node* node = q.front();
+            if(node){
+                sum += node->data;
+                cout<<node->data<<" ";
+                if(node->left)
+                    q.push(node->left);
+
+                if(node->right)
+                    q.push(node->right);
+            }
+            else{
+                vp.push_back({k, sum});
+                k++;
+                sum=0;
+                q.pop();
+                if(q.empty())break;
+                q.push(NULL);
+                continue;
+            }
+
+            q.pop();
+        }
+    }
+
+    void sumOfAllLevel(){
+        for(ll i=0; i<vp.size();i++)
+            cout<<"Level "<<i<<" is: "<<vp[i].second<<endl;
+    }
+};
+
+int main()
+{
+    Node node;
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+    root->right->left = new Node(6);
+    root->right->right = new Node(7);
+
+    /*
+          1
+        /   \
+      2       3
+     / \     / \
+    4   5   6   7
+
+    */
+
+    cout<<"LevelOrder Traversal"<<endl;
+    node.kthLevelSum(root);
+    cout<<endl<<endl;
+
+    cout<<"Sum for all level"<<endl;
+    node.sumOfAllLevel();
+    cout<<endl;
+
+    ll level;
+    cout<<"Enter any level up to 0 to "<<node.vp.size()-1<<": ";
+    cin>>level;
+
+    cout<<"Sum Of Level "<<level<<" is: "<<node.vp[level].second<<endl;
+    return 0;
+}
